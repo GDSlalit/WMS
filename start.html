@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+  Start page template - NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+{{ breadcrumb({
+  href: "/",
+  text: "Home"
+}) }}
+{% endblock %}
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+      <h1>
+        NHS Healthy Weight Management Service
+      </h1>
+
+      <p>Use this service to:</p>
+
+      <ul>
+        <li>get healthier</li>
+        <li>address weight related concerns</li>
+      </ul>
+      <h2 class="nhsuk-heading-m">Before you start</h2>
+
+      <p>You can only use this service if you live in the UK.</p>
+
+      <a href="/wms-list" class="nhsuk-button">
+        Start now
+      </a>
+
+    </div>
+
+	<img src="http://drive.google.com/uc?export=view&id=1YuE5zSDLBrj-p7UptVuFeL1U2A0YRt5S">
+  </div>
+{% endblock %}

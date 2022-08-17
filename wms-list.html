@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Location – {{ serviceName }} – NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+  <a class="govuk-back-link" href="javascript:window.history.back()">Back</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">Please provide postcode, your local authority or region name?</h1>
+      <form class="form" action="/testcsv" method="get">
+			<input type="text" placeholder="Type postcode" id="myInput" name="pcode">
+			<input type="submit" name="submit"  value="Submit">
+		</form>
+      </form>
+
+    </div>
+
+  </div>
+
+{% endblock %}

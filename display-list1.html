@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  ServiceList – {{ serviceName }} – NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="javascript:window.history.back()">Back</a>
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">Here is a list of services available in your area</h1>
+
+      <h2 class="govuk-heading-m">Service details</h2>
+
+      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Name
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <a href="https://www.slimmingworld.co.uk/">Slimming World</a>
+          </dd>
+
+        </div>
+        <div class="govuk-summary-list__row">
+          
+          
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service Description
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Online or Face to Face Group classes
+          </dd>
+          
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Contact details
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <p>09876 543210</p>
+            <p>info@example.com</p>
+          </dd>
+         
+        </div>
+		<div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Name
+          </dt>
+          <dd class="govuk-summary-list__value">
+            ManvFat
+          </dd>
+
+        </div>
+		<div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Service Description
+          </dt>
+          <dd class="govuk-summary-list__value">
+            Indoor weekly football for men only. Option for walking football available on inquiry.
+          </dd>
+          
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Contact details
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <p>01234 567890</p>
+            <p>info@manvfat.example.org</p>
+          </dd>
+         
+        </div>
+      </dl>
+
+
+
+
+     
+
+      
+    </div>
+  </div>
+{% endblock %}

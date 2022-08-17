@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Location – {{ serviceName }} – NHS.UK prototype kit
+{% endblock %}
+
+{% block beforeContent %}
+
+  <a class="govuk-back-link" href="javascript:window.history.back()">Back</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">Please provide postcode, your local authority or region name?</h1>
+      <form class="form" action="/testcsv" method="post">
+			<input type="text" placeholder="Type postcode" id="myInput">
+			<button type="button" onclick="getInputValue();">Get Value</button>
+    
+			<script> 
+				var inputVal = "";
+				function getInputValue(){
+				// Selecting the input element and get its value 
+				inputVal = document.getElementById("myInput").value;
+            
+				// Displaying the value
+				alert(inputVal);
+				}
+
+			</script>
+			<input type="submit" name="submit"  value="Submit">
+		</form>
+      </form>
+
+    </div>
+
+  </div>
+
+{% endblock %}
