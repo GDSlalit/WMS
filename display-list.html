@@ -1,3 +1,4 @@
+
 {% extends "layout.html" %}
 
 {% block pageTitle %}
@@ -16,53 +17,102 @@
 	  
     </div>
  </div>
- <!DOCTYPE html>
+
+
+<!DOCTYPE html>
 <!-- saved from url=(0014)about:internet -->
 <html lang="en">
 <html>
 
 <head>
-  <title>Test</title>
+  <title>WMS</title>
 
-</head>
-
-<body>
-
+</head>  
+  
+  
   <script type="text/javascript">
-    function processData(csv) {
+	  let params = new URLSearchParams(window.location.search)
+	  {
+	  }
 
-      let data = csv.split(/\r\n|\n/).map(v => v.split(','));
+	  let pcode = params.get('postcode').replace(/ /g,'').toUpperCase()
+	  {
+		console.log('Postcode provided:' + pcode)
+	  }	  
+ 
+      function getLAcode(csv) {
+		  let data = csv.split(/\r\n|\n/).map(v => v.split(','));
 
-      let headers = data.shift();
+		  let headers = data.shift();
+		  console.log(headers)
+		  let csvpcode = "";
 
-      let table = document.createElement('table');
+		  let rowcount = 1;
+		  let row = "";
+		  let csvfilename = "https://raw.githubusercontent.com/GDSlalit/WMS/main/testdata02.csv";
+		  while (rowcount <= 1000 ) {
+			row = data.shift();
+			try {
+			  csvpcode = row[0];
+			}
+			catch(err) {
+			  console.log("End of file reached - Match not found - default ",csvfilename, "file used - rowcount: ", rowcount )
+			  break;
+			}			
 
-      let thead = document.createElement('thead');
-      table.appendChild(thead);
+			if (pcode == csvpcode) {
+				csvfilename = "https://raw.githubusercontent.com/GDSlalit/WMS/main/"+ row[1] + ".csv";
+				console.log("Match found for: ", csvpcode, "CSV file to use: ", csvfilename)
+				break;
+			} 
+			else {
+				rowcount++;
+			}
+		  }
+		  return(csvfilename)				
+		}
+		
+	
+		function processData(csv) {
 
-      thead.innerHTML = '<tr><th>' + headers.join('</th><th>') + '</th></tr>';
+		  let data = csv.split(/\r\n|\n/).map(v => v.split(','));
 
-      let tbody = document.createElement('tbody');
-      table.appendChild(tbody);
+		  let headers = data.shift();
 
-      for (let row of data) {
-        tbody.innerHTML += '<tr><td>' + row.join('</td><td>') + '</td></tr>';
-      }
+		  let table = document.createElement('table');
 
-      document.body.appendChild(table);
+		  let thead = document.createElement('thead');
+		  table.appendChild(thead);
 
-    }
+		  thead.innerHTML = '<tr><th>' + headers.join('</th><th>') + '</th></tr>';
 
-    // I uploaded the CSV to a personal repo for this example,
-    // but you CAN use a local file as long as you *serve* it
-    fetch("https://raw.githubusercontent.com/GDSlalit/LalitTestDocs/main/testdata01.csv")
-      .then(res => res.text())
-      .then(text => processData(text));
+		  let tbody = document.createElement('tbody');
+		  table.appendChild(tbody);
+
+		  for (let row of data) {
+			tbody.innerHTML += '<tr><td>' + row.join('</td><td>') + '</td></tr>';
+		  }
+
+		  document.body.appendChild(table);
+		}
+		  
+		// CSV from GitHub repo
+		let postcodefile = "https://raw.githubusercontent.com/GDSlalit/WMS/main/postcode2LA.csv"
+
+		fetch(postcodefile)
+			.then(res => res.text())
+			.then(text => {
+				let csvfilename = getLAcode(text)
+				console.log("CSV file to use: ", csvfilename)	
+						
+				fetch(csvfilename)
+				.then(res => res.text())
+				.then(text => processData(text))
+			})
+		
   </script>
 
 </body>
 
 </html>
-
-
-{% endblock %}
+ {% endblock %}
