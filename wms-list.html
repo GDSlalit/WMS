@@ -11,14 +11,26 @@
 
 {% block content %}
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-xl">Please provide postcode, your local authority or region name?</h1>
+
+      <h1 class="govuk-heading-xl">Take the first step on your journey to a healthier you:</h1>
+      <div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="find-postcode">
+  <b>  Enter your postcode to find FREE healthy weight services available near you:</b>
+  </label>
+  <div class="nhsuk-hint" id="find-postcode">
+    Please enter your postcode AA1 1AA
+  </div>
+      <h3> </h3>
       <form class="form" action="/testcsv" method="get">
-			<input type="text" placeholder="Type postcode" id="myInput" name="pcode">
-			<input type="submit" name="submit"  value="Submit">
+      <input class="nhsuk-input nhsuk-input--width-10" type="text" id="myInput" aria-describedby="find-postcode" name="pcode"><br>
+
+<br>
+<p><b>Why do we need you to input your postcode?</b></p>
+  <p>The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. </p>
+
+			<input class="nhsuk-button" type="submit" name="submit"  value="Continue">
 		</form>
-      </form>
 
     </div>
 
