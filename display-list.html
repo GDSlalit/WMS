@@ -13,7 +13,7 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
-      <h1 class="govuk-heading-l">List of services available in your area</h1>
+      <h1 class="govuk-heading-l">Matches in your area:</h1>
 	  
     </div>
  </div>
@@ -22,13 +22,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0014)about:internet -->
 <html lang="en">
-<html>
-
-<head>
-  <title>WMS</title>
-
-</head>  
-  
+<html> 
   
   <script type="text/javascript">
 	  let params = new URLSearchParams(window.location.search)
@@ -103,16 +97,37 @@
 			.then(res => res.text())
 			.then(text => {
 				let csvfilename = getLAcode(text)
-				console.log("CSV file to use: ", csvfilename)	
-						
-				fetch(csvfilename)
-				.then(res => res.text())
-				.then(text => processData(text))
+				let defaultfile = "https://raw.githubusercontent.com/GDSlalit/WMS/main/testdata02.csv"
+				console.log("Data file to use: ", csvfilename);	
+				
+					fetch(csvfilename,
+						  { method: "HEAD" }
+					).then((res) => {
+					  if (res.ok) {
+						fetch(csvfilename)
+						.then(res => res.text())
+						.then(text => {						
+						if (csvfilename == defaultfile) {
+							console.log("Postcode match failed, display default information");	
+							processData(text)
+						}
+						else {
+							console.log("Data file found, display information");	
+							processData(text)
+						}
+						})
+					  } else {
+						  // file is not present at URL
+						 console.log("Data file not found, display default information");	
+						 fetch(defaultfile)
+						.then(res => res.text())
+						.then(text => {processData(text)
+	
+						})
+					  }
+					})		
 			})
 		
   </script>
-
-</body>
-
 </html>
  {% endblock %}
