@@ -13,8 +13,9 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
-      <h1 class="govuk-heading-l">Information available for your area:</h1>
-	  
+      <h1 class="govuk-heading-l">Matches in your area:</h1> <p> *Information on each service varies on information provded by local authorities</P>
+      <p><b> * FREE services found in your area - most services will accept a self referral but some require a GP referral</b></p>
+
     </div>
  </div>
 
@@ -22,8 +23,8 @@
 <!DOCTYPE html>
 <!-- saved from url=(0014)about:internet -->
 <html lang="en">
-<html> 
-  
+<html>
+
   <script type="text/javascript">
 	  let params = new URLSearchParams(window.location.search)
 	  {
@@ -32,8 +33,8 @@
 	  let pcode = params.get('postcode').replace(/ /g,'').toUpperCase()
 	  {
 		console.log('Postcode provided:' + pcode)
-	  }	  
- 
+	  }
+
       function getLAcode(csv) {
 		  let data = csv.split(/\r\n|\n/).map(v => v.split(','));
 
@@ -52,21 +53,21 @@
 			catch(err) {
 			  console.log("End of file reached - Match not found - default ",csvfilename, "file used - rowcount: ", rowcount )
 			  break;
-			}			
+			}
 
 			if (pcode == csvpcode) {
 				csvfilename = "https://raw.githubusercontent.com/GDSlalit/WMS/main/"+ row[1] + ".csv";
 				console.log("Match found for: ", csvpcode, "CSV file to use: ", csvfilename)
 				break;
-			} 
+			}
 			else {
 				rowcount++;
 			}
 		  }
-		  return(csvfilename)				
+		  return(csvfilename)
 		}
-		
-	
+
+
 		function processData(csv) {
 
 		  let data = csv.split(/\r\n|\n/).map(v => v.split(','));
@@ -89,7 +90,7 @@
 
 		  document.body.appendChild(table);
 		}
-		  
+
 		// CSV from GitHub repo
 		let postcodefile = "https://raw.githubusercontent.com/GDSlalit/WMS/main/postcode2LA.csv"
 
@@ -98,22 +99,22 @@
 			.then(text => {
 				let csvfilename = getLAcode(text)
 				let defaultfile = "https://raw.githubusercontent.com/GDSlalit/WMS/main/testdata02.csv"
-				console.log("Data file to use: ", csvfilename);	
-				
+				console.log("Data file to use: ", csvfilename);
+
 					fetch(csvfilename,
 						  { method: "HEAD" }
 					).then((res) => {
 					  if (res.ok) {
 						fetch(csvfilename)
 						.then(res => res.text())
-						.then(text => {						
+						.then(text => {
 						if (csvfilename == defaultfile) {
-							console.log("Postcode match failed, display default information");	
+							console.log("Postcode match failed, display default information");
 							processData(text)
 						}
 						else {
 							// Check if file is empty or only has a header
-							
+
 							let data = text.split(/\r\n|\n/).map(v => v.split(','));
 
 							let headers = data.shift();
@@ -135,15 +136,15 @@
 						})
 					  } else {
 						  // file is not present at URL
-						 console.log("Data file not found, display default information");	
+						 console.log("Data file not found, display default information");
 						 fetch(defaultfile)
 						.then(res => res.text())
 						.then(text => {processData(text)
 						})
 					  }
-					})		
+					})
 			})
-		
+
   </script>
 </html>
  {% endblock %}
