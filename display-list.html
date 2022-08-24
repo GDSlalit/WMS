@@ -13,7 +13,7 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
-      <h1 class="govuk-heading-l">Matches in your area:</h1>
+      <h1 class="govuk-heading-l">Information available for your area:</h1>
 	  
     </div>
  </div>
@@ -112,8 +112,17 @@
 							processData(text)
 						}
 						else {
-							console.log("Data file found, display information");	
-							processData(text)
+							// 92 is the length of the header. Check if file is empty or only has a header
+							if (text.length > 92) {
+								console.log("Data file found, file size is: ", text.length);
+								processData(text)
+							} else {
+								console.log("Data file empty, display default information");
+								 fetch(defaultfile)
+								.then(res => res.text())
+								.then(text => {processData(text)
+								})
+							}
 						}
 						})
 					  } else {
@@ -122,7 +131,6 @@
 						 fetch(defaultfile)
 						.then(res => res.text())
 						.then(text => {processData(text)
-	
 						})
 					  }
 					})		
