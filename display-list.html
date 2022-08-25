@@ -113,20 +113,14 @@
 							processData(text)
 						}
 						else {
-							// Check if file is empty or only has a header
+							// Check if file is corrupt
+							console.log("Data: ", text.length);
 
-							let data = text.split(/\r\n|\n/).map(v => v.split(','));
-
-							let headers = data.shift();
-							let firstrow = data.shift();
-							let firstelement = firstrow[0].trim();
-							console.log("Header: ", headers, " :", headers.length);
-							console.log("firstrow:", firstrow, " firstelement :", firstelement, " ", firstelement.length);
-							if (((firstelement.length > 0)) || (firstrow.length > 1)) {
+							if (text.length > 150) {
 								console.log("Data file found, file size is: ", text.length);
 								processData(text)
 							} else {
-								console.log("Data file empty, display default information");
+								console.log("Data file corrupt, display default information");
 								 fetch(defaultfile)
 								.then(res => res.text())
 								.then(text => {processData(text)
