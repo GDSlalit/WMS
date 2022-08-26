@@ -85,6 +85,16 @@
 		  table.appendChild(tbody);
 
 		  for (let row of data) {
+		    console.log("row: ", row);		
+			if (row.length >= 2) {
+			    let newrow = row[1];
+				row[1] = '<a href="'
+				row[1] += newrow; 
+				row[1] += '">';   
+				row[1] += newrow; //This can be changed to table += 'click here!';
+				row[1] += '</a>';
+				}  
+			console.log("newrow: ", row);
 			tbody.innerHTML += '<tr><td>' + row.join('</td><td>') + '</td></tr>';
 		  }
 
