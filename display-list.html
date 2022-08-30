@@ -84,9 +84,9 @@
 		  let tbody = document.createElement('tbody');
 		  table.appendChild(tbody);
 
-		  for (let row of data) {
-		    console.log("row: ", row);		
-			if (row.length >= 2) {
+		  // This takes the second column and displays it as hyperlink
+		  for (let row of data) {	
+			if (row.length > 1) {
 			    let newrow = row[1];
 				row[1] = '<a href="'
 				row[1] += newrow; 
@@ -94,7 +94,6 @@
 				row[1] += newrow; //This can be changed to table += 'click here!';
 				row[1] += '</a>';
 				}  
-			console.log("newrow: ", row);
 			tbody.innerHTML += '<tr><td>' + row.join('</td><td>') + '</td></tr>';
 		  }
 
@@ -102,9 +101,9 @@
 		}
 
 		// CSV from GitHub repo
-		let postcodefile = "https://raw.githubusercontent.com/GDSlalit/WMS/main/postcode2LA.csv"
+		let postcode_lookupfile = "https://raw.githubusercontent.com/GDSlalit/WMS/main/postcode2LA.csv"
 
-		fetch(postcodefile)
+		fetch(postcode_lookupfile)
 			.then(res => res.text())
 			.then(text => {
 				let csvfilename = getLAcode(text)
@@ -114,7 +113,7 @@
 					fetch(csvfilename,
 						  { method: "HEAD" }
 					).then((res) => {
-					  if (res.ok) {
+					  if (res.ok) { // Check file exists. If not display data from default file.
 						fetch(csvfilename)
 						.then(res => res.text())
 						.then(text => {
@@ -125,7 +124,8 @@
 						else {
 							// Check if file is corrupt
 							console.log("Data: ", text.length);
-
+							// Assuming minimum usable data in a file would be greater tham 150 character.
+							// Simple service name and minimum description for a single service should take atleast 150 char!!
 							if (text.length > 150) {
 								console.log("Data file found, file size is: ", text.length);
 								processData(text)
